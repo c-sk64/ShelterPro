@@ -1,0 +1,11 @@
+{
+  "version": "2.5.2",
+  "build": "2026.08.01.252",
+  "name": "Shelter Pro 2.5 Route Sharing",
+  "published": "2026-08-01",
+  "notes": [
+    "Kept Share Route in Driving Mode and Route Manager",
+    "Removed only the straight GPS-to-shelter line",
+    "Kept Shelter Pro GPS road routing"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "2.5.4",
+  "build": "2026.08.01.254",
+  "name": "Shelter Pro 2.5.4 Core Fixes",
+  "published": "2026-08-01",
+  "notes": [
+    "Share Route is visible in Driving Mode and Route Manager",
+    "Direct GPS-to-shelter straight line is disabled",
+    "Added Route map filter",
+    "Check Now compares the installed and published versions"
+  ],
+  "title": "Core navigation and update fixes"
+}
