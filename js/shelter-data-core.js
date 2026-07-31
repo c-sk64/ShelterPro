@@ -16,27 +16,11 @@ function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function statusOf(id){return statusMap[id]||"none"}
 function saveStatus(id,status){if(status==="none")delete statusMap[id];else statusMap[id]=status;localStorage.setItem(STATUS_KEY,JSON.stringify(statusMap));render();}
 function hav(lat1,lon1,lat2,lon2){const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180;const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(a));}
-function appleMaps(s) {
-  if (!s) {
-    alert("Shelter location is unavailable.");
-    return;
-  }
-
-  const destination =
-    Number.isFinite(Number(s.lat)) && Number.isFinite(Number(s.lon))
-      ? `${s.lat},${s.lon}`
-      : s.address;
-
-  if (!destination) {
-    alert("Shelter address is unavailable.");
-    return;
-  }
-
-  const url =
-    `https://maps.apple.com/?daddr=${encodeURIComponent(destination)}` +
-    `&dirflg=d`;
-
-  window.location.href = url;
+function appleMaps(s){
+  if(!s){alert("Shelter location is unavailable.");return;}
+  const destination=(s.address&&s.address.trim())?s.address:`${s.lat},${s.lon}`;
+  const url=`https://maps.apple.com/directions?destination=${encodeURIComponent(destination)}&mode=driving`;
+  window.location.assign(url);
 }
 function googleMaps(s){window.location.href=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lon}&travelmode=driving`}
 function wazeMaps(s){window.location.href=`https://waze.com/ul?ll=${s.lat}%2C${s.lon}&navigate=yes&utm_source=shelterpro`}

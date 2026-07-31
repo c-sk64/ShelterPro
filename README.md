@@ -22,3 +22,7 @@ A GitHub Pages-compatible progressive web app that does not require Node.js or a
 5. Merge into `main` only after testing.
 
 No Node.js, npm, Vite or administrator access is required.
+
+
+## Automatic updates
+The app checks `version.json` on GitHub Pages. Publish a new higher version in `version.json`; installed iPhone copies will offer **Update Now**.

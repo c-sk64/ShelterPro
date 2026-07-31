@@ -1,3 +1,22 @@
+# Shelter Pro 2.4.0 — Automatic Update
+
+- Automatic version check when the app opens or returns to the foreground.
+- Update Available dialog with release notes.
+- One-tap Update Now clears old app caches and reloads the latest GitHub Pages release.
+- Today’s Jobs, route, progress, favourites and settings remain in local storage.
+- Current version/build and manual Check Now option in Settings.
+- Added navigation-pro.js and updater.js to the offline application cache.
+
+# Shelter Pro 2.3
+
+- Added navigation choice: Shelter Pro GPS, Apple Maps, Google Maps and Waze.
+- Added built-in road route using OSRM.
+- Added current street, next street and spoken turn instruction.
+- Added next-stop and final-stop distance, time and arrival estimates.
+- Added Search and Fit Route buttons in Driving Mode.
+- Active route stops remain visible with site numbers when zoomed out.
+- Added default navigation preference in Settings.
+
 # Changelog
 
 ## 2.2.1 Apple Maps Fix
