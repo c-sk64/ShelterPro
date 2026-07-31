@@ -1,0 +1,11 @@
+{
+  "name": "Shelter Pro",
+  "short_name": "Shelter Pro",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fa",
+  "theme_color": "#0b57d0",
+  "description": "Shelter navigation and daily route management",
+  "id": "./",
+  "orientation": "any"
+}
