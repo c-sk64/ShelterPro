@@ -1,3 +1,1 @@
-Shelter Pro 2.0.0 Static Modular
-Build date: 2026-07-31
-Target: GitHub Pages / iPhone PWA
+Shelter Pro 2.2 Route Progress

@@ -1,4 +1,4 @@
-const CACHE='shelter-pro-v2-static-modular';
+const CACHE='shelter-pro-v2-2-route-progress';
 const CORE=['./','./index.html','./manifest.webmanifest',
   './js/csv-import.js',
   './js/app-foundation.js',
