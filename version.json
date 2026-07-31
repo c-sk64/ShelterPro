@@ -1,13 +1,13 @@
 {
-  "version": "2.4.0",
-  "build": "2026.08.01.001",
-  "name": "Shelter Pro 2.4 Automatic Update",
+  "version": "2.5.5",
+  "build": "2026.08.01.255",
+  "name": "Shelter Pro 2.5.5 iPhone Update Fix",
   "published": "2026-08-01",
   "notes": [
-    "Automatic update checking from GitHub Pages",
-    "One-tap Update Now prompt",
-    "Current version and build shown in Settings",
-    "Old app caches cleared during update",
-    "Today's Jobs, route, favourites, settings and progress are preserved"
-  ]
+    "Check Now reads the latest version directly from GitHub Pages",
+    "Update Now works in the iPhone Home Screen app as well as on the laptop",
+    "Old Shelter Pro service-worker caches are removed before reloading",
+    "The iPhone reopens Shelter Pro with a cache-busting URL after installation"
+  ],
+  "title": "iPhone automatic update support"
 }

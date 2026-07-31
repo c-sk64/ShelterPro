@@ -1,2 +1,2 @@
-Shelter Pro 2.4.0 Automatic Update
-Build 2026.08.01.001
+2.5.5
+2026.08.01.255

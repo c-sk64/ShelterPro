@@ -1,3 +1,20 @@
+# Shelter Pro 2.5.4
+
+- Added a visible Share Route button to Driving Mode.
+- Added a visible Share Route button to Route Manager.
+- Permanently disabled the direct GPS-to-shelter straight line.
+- Added Route beside All Areas, North, South, East, West, CBD / Inner and Today's Jobs.
+- Route filter shows only shelters in the active route.
+- Updated Check Now to compare installed and published versions.
+- Updated the service-worker cache to 2.5.4.
+
+# Shelter Pro 2.5.2
+
+- Kept Share Route in Driving Mode.
+- Kept Share Route in Route Manager.
+- Removed only the direct straight line from the current GPS location to a shelter.
+- Kept proper road-following routes for Shelter Pro GPS.
+
 # Shelter Pro 2.4.0 — Automatic Update
 
 - Automatic version check when the app opens or returns to the foreground.
@@ -34,3 +51,16 @@
 - Replaced the legacy Apple Maps `daddr` link with the current unified directions URL.
 - Uses the shelter address, with GPS coordinates as fallback.
 - Corrected the Apple Maps action inside map marker popups.
+
+## 2.5.0 — Route Sharing and Navigation Actions
+- Added Share Active Route to Apple Maps and Google Maps.
+- Splits large Apple Maps routes into compatible sections.
+- Added Copy Route List.
+- Added Navigate buttons to Search, Today's Jobs and Favourites.
+- Added current-stop navigation from the route sharing screen.
+
+## 2.5.5 — iPhone update fix
+- Added a real GitHub Pages version check for Check Now.
+- Added Update Now support for the iPhone Home Screen PWA.
+- Clears old Shelter Pro caches and unregisters the previous service worker before reloading.
+- Uses cache-busting query parameters so iPhone Safari loads the newly published files.

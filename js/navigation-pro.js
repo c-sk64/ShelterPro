@@ -46,6 +46,7 @@
   function clearRoadRoute(){if(roadRouteLayer){map.removeLayer(roadRouteLayer);roadRouteLayer=null;}}
   function drawRoadRoute(route){
     clearRoadRoute();
+    if(!driving)return;
     const latlngs=route.geometry.coordinates.map(([lon,lat])=>[lat,lon]);
     roadRouteLayer=L.polyline(latlngs,{color:'#1769ff',weight:7,opacity:.9,lineJoin:'round',lineCap:'round'}).addTo(map);
     roadRouteLayer.bringToFront();
@@ -210,6 +211,8 @@
   startDriving=async function(){await originalStartDriving();setTimeout(()=>{refreshRoadNavigation(true);drawRouteStops(false);},350);};
   const originalUpdateDrivingView=updateDrivingView;
   updateDrivingView=function(){originalUpdateDrivingView();updateStreetPanel();updateSummaryPanel();drawRouteStops(false);};
+  const originalStopDriving=stopDriving;
+  stopDriving=async function(){clearRoadRoute();roadRoute=null;roadSteps=[];wholeRouteSummary=null;await originalStopDriving();updateStreetPanel();updateSummaryPanel();};
 
   installUI();
   drawRouteStops(false);
