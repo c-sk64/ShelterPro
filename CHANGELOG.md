@@ -1,11 +1,11 @@
 # Changelog
 
-## 1.0 RC1
-- Repaired the CSV importer and integrated it into Today's Jobs.
-- Added quoted-field CSV parsing and vWork-column validation.
-- Added worker, customer, file, matched and unmatched import summary.
-- Added Waze navigation support.
-- Added a driving-mode mute control.
-- Made Start Driving enter full-screen map mode automatically.
-- Updated PWA identity and cache version for GitHub Pages deployment.
-- Added clear documentation of features requiring external services.
+## 2.0.0 Static Modular — 2026-07-31
+
+- Preserved the complete Shelter Pro 1.0 RC1 application.
+- Extracted embedded CSS into `css/app.css`.
+- Split embedded JavaScript into four ordered modules.
+- Added `.nojekyll` for reliable GitHub Pages publishing.
+- Updated PWA cache version.
+- Added version and branch deployment documentation.
+- No Node.js or build process required.

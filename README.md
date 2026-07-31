@@ -1,24 +1,24 @@
-# Shelter Pro 1.0 RC1
+# Shelter Pro 2.0 — Static Modular
 
-Static Progressive Web App prepared for GitHub Pages.
+A GitHub Pages-compatible progressive web app that does not require Node.js or administrator access.
 
-## Included in this build
-- Dashboard, map, smart search, favourites and saved route queue
-- Live GPS driving mode, heading-up map, follow mode and speed-based zoom
-- Large site number, distance, address, speed, ETA and GPS-quality display
-- Voice and vibration approach/arrival alerts
-- Automatic next unfinished shelter after Cleaned or Skip
-- Apple Maps, Google Maps and Waze launch options
-- Dark mode, full-screen driving mode, landscape support and Wake Lock
-- Robust vWork CSV import tested against `Hamish - Trial 2026-06-16.csv`
-- Local persistence for jobs, route, favourites, settings and progress
-- PWA manifest and service worker
+## Included
 
-## Not activated yet
-Secure login and cloud synchronisation require a Supabase project URL and public anon key. Live traffic, traffic-light state, camera datasets, true offline map tiles and CarPlay also require separate authorised data/services or a native app. They are not falsely represented as active in this build.
+- Existing Shelter Pro dashboard and driving workflow preserved
+- Live GPS and map functionality preserved
+- vWork CSV import preserved
+- Today’s Jobs, Route Manager, Search, Favourites and Settings preserved
+- Apple Maps, Google Maps and Waze launch options preserved
+- CSS moved to `css/app.css`
+- JavaScript split into maintainable files under `js/`
+- GitHub Pages and iPhone Home Screen support
 
-## GitHub Pages
-Upload all files to the root of a GitHub repository, enable **Settings → Pages → Deploy from a branch**, and choose the `main` branch/root folder.
+## Development workflow
 
-## iPhone installation
-Open the GitHub Pages URL in Safari, press Share, then **Add to Home Screen**.
+1. Work on the `develop` branch.
+2. Open `index.html` with Live Server in VS Code.
+3. Test changes locally.
+4. Commit and push using GitHub Desktop.
+5. Merge into `main` only after testing.
+
+No Node.js, npm, Vite or administrator access is required.
