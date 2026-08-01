@@ -1,3 +1,10 @@
+# Shelter Pro 2.5.6
+
+- Added an iPhone-safe update activation flow.
+- Removed forced reload, service-worker removal and repeated update loops.
+- Check Now always requests the published version without cache.
+- Update Now prepares the service worker, then asks the user to close and reopen the Home Screen app.
+
 # Shelter Pro 2.5.4
 
 - Added a visible Share Route button to Driving Mode.
@@ -59,7 +66,7 @@
 - Added Navigate buttons to Search, Today's Jobs and Favourites.
 - Added current-stop navigation from the route sharing screen.
 
-## 2.5.5 — iPhone update fix
+## 2.5.6 — iPhone update fix
 - Added a real GitHub Pages version check for Check Now.
 - Added Update Now support for the iPhone Home Screen PWA.
 - Clears old Shelter Pro caches and unregisters the previous service worker before reloading.
