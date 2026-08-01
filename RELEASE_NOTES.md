@@ -1,7 +1,7 @@
-# Shelter Pro 2.5.8 — Update Activation Fix
+# Shelter Pro 3.0.0 — Route Core
 
-- Replaced the stuck “ready to activate” updater.
-- Update Now now activates the waiting service worker and reloads once.
-- Removed repeated automatic update popups.
-- Preserved the Route Manager, route-marker, and iPhone Fit Route fixes from 2.5.7.
-- Updated cache and asset versions to 2.5.8.
+- One shared active route across Route Manager, Driving Mode, Route filter, Fit Route and Share Route.
+- All route stops remain visible on the map.
+- Stop markers display route position and site number.
+- Fit Route includes current GPS position while driving.
+- Reduced unnecessary route-marker redraws.

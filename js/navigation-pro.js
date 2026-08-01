@@ -22,10 +22,10 @@
   function fmtArrival(s){if(!Number.isFinite(s))return '—';return new Date(Date.now()+s*1000).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});}
   function queueIds(){
     try{
-      if(typeof ShelterProState!=='undefined'){
-        const r=ShelterProState.getRoute().filter(id=>ShelterProState.getStatus(id)!=='cleaned'&&ShelterProState.getStatus(id)!=='skipped');
+      if(window.ShelterProWorkflow){
+        const r=ShelterProWorkflow.getRoute().filter(id=>statusOf(String(id))!=='cleaned'&&statusOf(String(id))!=='skipped');
         if(r.length)return r;
-        return ShelterProState.getJobs().filter(id=>ShelterProState.getStatus(id)!=='cleaned'&&ShelterProState.getStatus(id)!=='skipped');
+        return ShelterProWorkflow.getJobs().filter(id=>statusOf(String(id))!=='cleaned'&&statusOf(String(id))!=='skipped');
       }
     }catch(e){}
     return [];
@@ -137,8 +137,9 @@
   }
   function activeRouteIds(){
     try{
-      const routeIds=ShelterProState.getRoute();
-      return routeIds.length?routeIds:ShelterProState.getJobs();
+      const routeIds=window.ShelterProWorkflow?.getRoute?.()||[];
+      const jobIds=window.ShelterProWorkflow?.getJobs?.()||[];
+      return routeIds.length?routeIds:jobIds;
     }catch(e){return [];}
   }
   function fitActiveRoute(){
@@ -163,7 +164,7 @@
     const all=activeRouteIds();
     all.forEach((id,i)=>{
       const s=SITES.find(x=>String(x.id)===String(id));if(!s)return;
-      const st=ShelterProState.getStatus(id);
+      const st=statusOf(String(id));
       const current=activeSite()&&String(activeSite().id)===String(id);
       const color=current?'#1769ff':st==='cleaned'?'#16a34a':st==='skipped'?'#eab308':'#f97316';
       const icon=L.divIcon({className:'route-stop-icon',html:`<span style="--route-color:${color}"><b>${i+1}</b> · ${escNav(s.id)}</span>`,iconSize:[82,30],iconAnchor:[41,15]});
@@ -218,8 +219,8 @@
       const routeBtn=e.target.closest('[data-rgo]');
       if(routeBtn){e.preventDefault();e.stopImmediatePropagation();const s=SITES.find(x=>String(x.id)===String(routeBtn.dataset.rgo));preferredNavigate(s);}
     },true);
-    const observer=new MutationObserver(()=>drawRouteStops(false));
-    observer.observe(document.body,{childList:true,subtree:true});
+    document.addEventListener('shelterpro:routechange',()=>drawRouteStops(false));
+    document.addEventListener('shelterpro:statuschange',()=>drawRouteStops(false));
   }
 
   // Reliable Apple Maps handoff on iPhone; web page on Windows.

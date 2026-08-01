@@ -4,11 +4,11 @@
 
   function getStateIds() {
     try {
-      const route = window.ShelterProState?.getRoute?.() || [];
-      const jobs = window.ShelterProState?.getJobs?.() || [];
+      const route = window.ShelterProWorkflow?.getRoute?.() || [];
+      const jobs = window.ShelterProWorkflow?.getJobs?.() || [];
       const source = route.length ? route : jobs;
       return source.filter((id) => {
-        const status = window.ShelterProState?.getStatus?.(id) || 'none';
+        const status = typeof window.statusOf==='function' ? window.statusOf(String(id)) : 'none';
         return status !== 'cleaned' && status !== 'skipped';
       });
     } catch (_) {

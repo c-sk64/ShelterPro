@@ -1,3 +1,10 @@
+# Shelter Pro 3.0.0
+
+- Unified all route features around the saved ShelterProWorkflow route.
+- Fixed missing route markers, broken Share Route and Route filter.
+- Fixed Fit Route across desktop and iPhone.
+- Reduced route marker redraw overhead.
+
 # Shelter Pro 2.5.8
 
 - Replaced the stuck ready-to-activate update state.

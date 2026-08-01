@@ -1,14 +1,14 @@
 {
-  "version": "2.5.8",
-  "build": "2026.08.01.258",
-  "name": "Shelter Pro 2.5.8 Update Activation Fix",
+  "version": "3.0.0",
+  "build": "2026.08.01.300",
+  "name": "Shelter Pro 3.0 Route Core",
   "published": "2026-08-01",
-  "title": "Reliable one-step update activation",
+  "title": "Single active route stability",
   "notes": [
-    "Replaces the stuck ready-to-activate update state",
-    "Update Now activates the new service worker and reloads once",
-    "Removes repeated automatic update popups",
-    "Keeps the Route Manager and Fit Route fixes from 2.5.7",
-    "Uses network-first loading so newly published files appear immediately"
+    "Route Manager, Driving Mode, Fit Route, Route filter and Share Route now use the same saved route",
+    "All route stops remain visible on the map with stop number and site number",
+    "Fit Route includes every route stop and the current GPS position",
+    "Share Route uses the route visible in Route Manager",
+    "Removed an expensive page-wide marker redraw observer"
   ]
 }
