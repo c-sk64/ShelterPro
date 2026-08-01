@@ -1,3 +1,10 @@
+# Shelter Pro 2.5.8
+
+- Replaced the stuck ready-to-activate update state.
+- Update Now activates the waiting service worker and reloads once.
+- Removed repeated automatic update popups.
+- Preserved Route Manager, route-marker and iPhone Fit Route fixes.
+
 # Shelter Pro Changelog
 
 ## 2.5.7 — Route Stability

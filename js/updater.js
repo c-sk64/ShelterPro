@@ -1,14 +1,14 @@
 (function(){
   "use strict";
 
-  const LOCAL_VERSION="2.5.6";
-  const LOCAL_BUILD="2026.08.01.256";
+  const LOCAL_VERSION="2.5.8";
+  const LOCAL_BUILD="2026.08.01.258";
   const VERSION_URL="./version.json";
-  const LAST_CHECK_KEY="shelterProLastUpdateCheck";
-  const AUTO_CHECK_INTERVAL=24*60*60*1000;
+  const RELOAD_GUARD="shelterProUpdateReloading";
   const byId=id=>document.getElementById(id);
   const parts=v=>String(v||"0").split(/[.-]/).map(x=>parseInt(x,10)||0);
   let checking=false;
+  let installing=false;
 
   function newer(remote,local){
     const a=parts(remote),b=parts(local),n=Math.max(a.length,b.length);
@@ -44,24 +44,19 @@
   async function fetchVersion(){
     const url=new URL(VERSION_URL,window.location.href);
     url.searchParams.set("t",Date.now().toString());
-    const response=await fetch(url.toString(),{
-      cache:"no-store",
-      credentials:"same-origin",
-      headers:{"Cache-Control":"no-cache, no-store, must-revalidate","Pragma":"no-cache"}
-    });
+    const response=await fetch(url.toString(),{cache:"no-store",credentials:"same-origin"});
     if(!response.ok)throw new Error(`Version check failed (${response.status})`);
     return response.json();
   }
 
-  async function checkForUpdates(manual=false){
+  async function checkForUpdates(manual=true){
     if(checking)return false;
     checking=true;
     const status=byId("updateCheckStatus"),button=byId("checkUpdates");
-    if(button&&manual){button.disabled=true;button.textContent="Checking…";}
-    if(status&&manual)status.textContent="Checking GitHub Pages for the latest Shelter Pro version…";
+    if(button){button.disabled=true;button.textContent="Checking…";}
+    if(status)status.textContent="Checking GitHub Pages for the latest Shelter Pro version…";
     try{
       const info=await fetchVersion();
-      localStorage.setItem(LAST_CHECK_KEY,String(Date.now()));
       const latest=info.version||LOCAL_VERSION;
       if(newer(latest,LOCAL_VERSION)){
         if(status)status.textContent=`Update available: version ${latest}. Installed: ${LOCAL_VERSION}.`;
@@ -78,48 +73,69 @@
       return false;
     }finally{
       checking=false;
-      if(button&&manual){button.disabled=false;button.textContent="Check Now";}
+      if(button){button.disabled=false;button.textContent="Check Now";}
     }
   }
 
+  function reloadLatest(){
+    if(sessionStorage.getItem(RELOAD_GUARD)==="1")return;
+    sessionStorage.setItem(RELOAD_GUARD,"1");
+    const url=new URL(window.location.href);
+    url.searchParams.set("updated",Date.now().toString());
+    window.location.replace(url.toString());
+  }
+
   async function installUpdate(){
-    const button=byId("updateNow"),later=byId("updateLater"),modal=byId("updateModal");
-    const targetVersion=modal?.dataset.version||"the new version";
-    if(button){button.disabled=true;button.textContent="Preparing…";}
+    if(installing)return;
+    installing=true;
+    const button=byId("updateNow"),later=byId("updateLater");
+    if(button){button.disabled=true;button.textContent="Updating…";}
     if(later)later.disabled=true;
     try{
-      if("serviceWorker" in navigator){
-        const registration=await navigator.serviceWorker.getRegistration();
-        if(registration){
-          await registration.update();
-          if(registration.waiting)registration.waiting.postMessage({type:"SKIP_WAITING"});
-        }
+      if(!("serviceWorker" in navigator)){
+        closeModal();
+        reloadLatest();
+        return;
       }
+
+      let registration=await navigator.serviceWorker.getRegistration();
+      if(!registration){
+        registration=await navigator.serviceWorker.register("./service-worker.js?v=2.5.8",{updateViaCache:"none"});
+      }
+
+      const changed=new Promise(resolve=>{
+        let done=false;
+        const finish=()=>{if(done)return;done=true;resolve();};
+        navigator.serviceWorker.addEventListener("controllerchange",finish,{once:true});
+        setTimeout(finish,5000);
+      });
+
+      await registration.update();
+      const worker=registration.waiting||registration.installing;
+      if(worker){
+        worker.postMessage({type:"SKIP_WAITING"});
+      }
+      await changed;
       closeModal();
-      const status=byId("updateCheckStatus");
-      if(status)status.textContent=`Version ${targetVersion} is ready to activate. Close Shelter Pro completely and reopen it.`;
-      alert(`Shelter Pro ${targetVersion} is ready.\n\nOn iPhone:\n1. Swipe up and close Shelter Pro completely.\n2. Wait 5 seconds.\n3. Reopen Shelter Pro from the Home Screen.\n\nYour jobs, route, favourites and settings will remain saved.`);
+      reloadLatest();
     }catch(error){
-      console.error("Shelter Pro update preparation:",error);
-      alert("The update could not be prepared. Keep using this version and try again later.");
+      console.error("Shelter Pro update:",error);
+      alert("The update could not be installed. Please close Shelter Pro, reopen it, and try Check Now again.");
     }finally{
+      installing=false;
       if(button){button.disabled=false;button.textContent="Update Now";}
       if(later)later.disabled=false;
     }
   }
 
-  function maybeAutoCheck(){
-    const last=Number(localStorage.getItem(LAST_CHECK_KEY)||0);
-    if(Date.now()-last<AUTO_CHECK_INTERVAL)return;
-    setTimeout(()=>checkForUpdates(false),5000);
-  }
-
   function wire(){
+    sessionStorage.removeItem(RELOAD_GUARD);
     setVersionText();
     byId("updateNow")?.addEventListener("click",installUpdate);
     byId("updateLater")?.addEventListener("click",closeModal);
     byId("checkUpdates")?.addEventListener("click",()=>checkForUpdates(true));
-    maybeAutoCheck();
+    const status=byId("updateCheckStatus");
+    if(status)status.textContent="Tap Check Now to compare with the latest published version.";
   }
 
   window.ShelterProUpdater={check:checkForUpdates,version:LOCAL_VERSION,build:LOCAL_BUILD,install:installUpdate};

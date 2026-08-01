@@ -1,12 +1,14 @@
 {
-  "version": "2.5.7",
-  "build": "2026.08.01.257",
-  "name": "Route Stability",
+  "version": "2.5.8",
+  "build": "2026.08.01.258",
+  "name": "Shelter Pro 2.5.8 Update Activation Fix",
   "published": "2026-08-01",
-  "title": "Safe iPhone update activation",
+  "title": "Reliable one-step update activation",
   "notes": [
-    "Fixed Route Manager list during driving on desktop",
-    "Fixed Fit Route on iPhone",
-    "Keeps every active route stop visible with stop number and site number"
+    "Replaces the stuck ready-to-activate update state",
+    "Update Now activates the new service worker and reloads once",
+    "Removes repeated automatic update popups",
+    "Keeps the Route Manager and Fit Route fixes from 2.5.7",
+    "Uses network-first loading so newly published files appear immediately"
   ]
 }
