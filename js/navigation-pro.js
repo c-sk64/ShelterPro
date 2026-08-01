@@ -143,6 +143,7 @@
     }catch(e){return [];}
   }
   function fitActiveRoute(){
+    if(typeof followDriving!=='undefined'){followDriving=false;const fb=document.getElementById('followToggle');if(fb)fb.textContent='📍 Follow: Off';}
     const ids=activeRouteIds();
     const points=ids.map(id=>SITES.find(s=>String(s.id)===String(id))).filter(s=>Number.isFinite(Number(s.lat))&&Number.isFinite(Number(s.lon))).map(s=>[Number(s.lat),Number(s.lon)]);
     if(driving&&currentPos&&Number.isFinite(currentPos.lat)&&Number.isFinite(currentPos.lon))points.push([currentPos.lat,currentPos.lon]);

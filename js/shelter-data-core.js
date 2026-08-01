@@ -108,13 +108,14 @@ document.getElementById('startDriving').onclick=startDriving;document.getElement
 document.getElementById('followToggle').onclick=()=>{followDriving=!followDriving;document.getElementById('followToggle').textContent='📍 Follow: '+(followDriving?'On':'Off');if(followDriving)updateDrivingView();};
 document.getElementById('headingToggle').onclick=()=>{headingUp=!headingUp;document.getElementById('headingToggle').textContent='🧭 Heading-up: '+(headingUp?'On':'Off');if(!headingUp&&typeof map.setBearing==='function')map.setBearing(0);else updateDrivingView();};
 document.getElementById('nightToggle').onclick=()=>{document.body.classList.toggle('night');document.getElementById('nightToggle').textContent=document.body.classList.contains('night')?'☀️ Day':'🌙 Night';};
-document.getElementById('fullScreen').onclick=()=>{document.getElementById('app').classList.toggle('fullmap');map.invalidateSize();if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});};
+document.getElementById('fullScreen').onclick=async()=>{const app=document.getElementById('app');const entering=!app.classList.contains('fullmap');app.classList.toggle('fullmap',entering);if(entering&&document.documentElement.requestFullscreen&&!document.fullscreenElement){try{await document.documentElement.requestFullscreen();}catch(_){}}else if(!entering&&document.fullscreenElement&&document.exitFullscreen){try{await document.exitFullscreen();}catch(_){}}setTimeout(()=>map.invalidateSize({pan:false}),80);};
 document.getElementById('driveNavigate').onclick=()=>{if(currentDriveSite)appleMaps(currentDriveSite);};
 document.getElementById('driveDone').onclick=()=>{if(currentDriveSite){showDrivingDashboard(5000);saveStatus(currentDriveSite.id,'cleaned');last500Site=null;lastAlertSite=null;lastArrivalSite=null;arrivalConfirmCount=0;speak('Site '+currentDriveSite.id+' completed. Selecting next shelter');updateDrivingView();}};
 document.getElementById('driveSkip').onclick=()=>{if(currentDriveSite){showDrivingDashboard(5000);saveStatus(currentDriveSite.id,'skipped');last500Site=null;lastAlertSite=null;lastArrivalSite=null;arrivalConfirmCount=0;updateDrivingView();}};
 
 const driveMiniBar=document.getElementById('driveMiniBar');
 driveMiniBar.addEventListener('click',()=>showDrivingDashboard(5000));
+map.on('click',()=>{if(driving)showDrivingDashboard(driveSettings.autoHide||5000);});
 driveMiniBar.addEventListener('touchstart',e=>{dashboardTouchStartY=e.touches[0].clientY;},{passive:true});
 driveMiniBar.addEventListener('touchend',e=>{if(dashboardTouchStartY!==null&&dashboardTouchStartY-e.changedTouches[0].clientY>24)showDrivingDashboard(5000);dashboardTouchStartY=null;},{passive:true});
 const driveDashboardEl=document.getElementById('driveDashboard');

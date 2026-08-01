@@ -1,3 +1,10 @@
+# Shelter Pro 3.0.3
+
+- Simplified update checking: no fake in-place installation.
+- Fixed Share Route to use the Route Manager route.
+- Fit Route now disables Follow so the route overview stays visible.
+- Fixed desktop Full Screen and preserved dashboard auto-hide.
+
 # Shelter Pro 3.0.0
 
 - Unified all route features around the saved ShelterProWorkflow route.

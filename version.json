@@ -1,14 +1,14 @@
 {
-  "version": "3.0.0",
-  "build": "2026.08.01.300",
-  "name": "Shelter Pro 3.0 Route Core",
+  "version": "3.0.3",
+  "build": "2026.08.01.303",
+  "name": "Shelter Pro 3.0.3 Stability Core",
   "published": "2026-08-01",
-  "title": "Single active route stability",
+  "title": "Route, immersive driving and simple updates",
   "notes": [
-    "Route Manager, Driving Mode, Fit Route, Route filter and Share Route now use the same saved route",
-    "All route stops remain visible on the map with stop number and site number",
-    "Fit Route includes every route stop and the current GPS position",
-    "Share Route uses the route visible in Route Manager",
-    "Removed an expensive page-wide marker redraw observer"
+    "Share Route uses the exact Route Manager route",
+    "Fit Route turns Follow off so the full route stays visible",
+    "Full Screen hides the desktop side panel and expands the map",
+    "Bottom dashboard auto-hide remains controlled by Settings",
+    "Update checking no longer pretends to install files in place"
   ]
 }
