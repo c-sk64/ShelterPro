@@ -1,5 +1,5 @@
-const CACHE='shelter-pro-2.5.6';
-const VERSION='2.5.6';
+const CACHE='shelter-pro-2.5.7';
+const VERSION='2.5.7';
 const CORE=['./','./index.html','./manifest.webmanifest','./js/csv-import.js','./js/app-foundation.js','./js/route-manager.js','./js/shelter-data-core.js','./js/navigation-pro.js','./js/route-share.js','./js/updater.js','./css/app.css'];
 
 self.addEventListener('install',event=>{

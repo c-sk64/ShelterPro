@@ -1,3 +1,10 @@
+# Shelter Pro Changelog
+
+## 2.5.7 — Route Stability
+- Restored the desktop route stop list while driving.
+- Fixed Fit Route on iPhone using a delayed Leaflet size refresh.
+- Active route markers remain visible at every zoom level and show route order plus site number.
+
 # Shelter Pro 2.5.6
 
 - Added an iPhone-safe update activation flow.

@@ -96,3 +96,12 @@ body.night{background:#10141c;color:#eef3fb}body.night header,body.night #panel{
 [data-area="Route"]{font-weight:800}
 [data-area="Route"].active{background:#1769ff;color:#fff;border-color:#1769ff}
 #shareActiveRoute,#routeShareFromManager{font-weight:800}
+
+/* Shelter Pro 2.5.7 route stability */
+@media(min-width:800px){
+  #app.driving{display:grid;grid-template-columns:410px 1fr;grid-template-rows:1fr}
+  #app.driving #panel{display:block!important;grid-column:1;grid-row:1;max-height:none;height:100%;border-top:0;border-right:1px solid #ddd;overflow:auto}
+  #app.driving #map{grid-column:2;grid-row:1;height:100%!important;min-height:100%!important}
+  #app.driving.fullmap #panel{display:block!important}
+}
+.route-stop-icon span b{display:inline-block;min-width:18px;color:var(--route-color)}

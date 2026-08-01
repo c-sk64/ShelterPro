@@ -128,20 +128,48 @@
     }
   }
 
+  function ensureRoutePane(){
+    if(!map.getPane('routeStopsPane')){
+      const pane=map.createPane('routeStopsPane');
+      pane.style.zIndex='690';
+      pane.style.pointerEvents='auto';
+    }
+  }
+  function activeRouteIds(){
+    try{
+      const routeIds=ShelterProState.getRoute();
+      return routeIds.length?routeIds:ShelterProState.getJobs();
+    }catch(e){return [];}
+  }
+  function fitActiveRoute(){
+    const ids=activeRouteIds();
+    const points=ids.map(id=>SITES.find(s=>String(s.id)===String(id))).filter(s=>Number.isFinite(Number(s.lat))&&Number.isFinite(Number(s.lon))).map(s=>[Number(s.lat),Number(s.lon)]);
+    if(driving&&currentPos&&Number.isFinite(currentPos.lat)&&Number.isFinite(currentPos.lon))points.push([currentPos.lat,currentPos.lon]);
+    if(!points.length){alert('There are no valid stops in the active route.');return;}
+    map.invalidateSize({pan:false});
+    const apply=()=>{
+      map.invalidateSize({pan:false});
+      if(points.length===1){map.setView(points[0],16,{animate:false});return;}
+      const bounds=L.latLngBounds(points);
+      const mobile=window.matchMedia('(max-width: 700px)').matches;
+      map.fitBounds(bounds,{paddingTopLeft:mobile?[28,42]:[48,48],paddingBottomRight:mobile?[28,210]:[48,120],maxZoom:17,animate:false});
+    };
+    requestAnimationFrame(()=>setTimeout(apply,120));
+  }
   function drawRouteStops(fit=false){
+    ensureRoutePane();
     if(routeStopsLayer)map.removeLayer(routeStopsLayer);
-    routeStopsLayer=L.layerGroup().addTo(map);
-    const qs=queueIds();
-    const all=(typeof ShelterProState!=='undefined'&&ShelterProState.getRoute().length?ShelterProState.getRoute():ShelterProState.getJobs());
+    routeStopsLayer=L.featureGroup().addTo(map);
+    const all=activeRouteIds();
     all.forEach((id,i)=>{
       const s=SITES.find(x=>String(x.id)===String(id));if(!s)return;
       const st=ShelterProState.getStatus(id);
       const current=activeSite()&&String(activeSite().id)===String(id);
       const color=current?'#1769ff':st==='cleaned'?'#16a34a':st==='skipped'?'#eab308':'#f97316';
-      const icon=L.divIcon({className:'route-stop-icon',html:`<span style="--route-color:${color}">${escNav(s.id)}</span>`,iconSize:[62,28],iconAnchor:[31,14]});
-      L.marker([s.lat,s.lon],{icon,zIndexOffset:current?2000:1200}).addTo(routeStopsLayer).on('click',()=>{selectedId=s.id;currentDriveSite=s;selectSite(s.id,true);updateDrivingView();});
+      const icon=L.divIcon({className:'route-stop-icon',html:`<span style="--route-color:${color}"><b>${i+1}</b> · ${escNav(s.id)}</span>`,iconSize:[82,30],iconAnchor:[41,15]});
+      L.marker([s.lat,s.lon],{icon,pane:'routeStopsPane',zIndexOffset:current?3000:2200,keyboard:false}).addTo(routeStopsLayer).on('click',()=>{selectedId=s.id;currentDriveSite=s;selectSite(s.id,true);updateDrivingView();});
     });
-    if(fit&&routeStopsLayer.getLayers().length){map.fitBounds(routeStopsLayer.getBounds().pad(.15),{padding:[35,35]});}
+    if(fit)fitActiveRoute();
   }
 
   function openNavigationChoice(s){
@@ -216,5 +244,5 @@
 
   installUI();
   drawRouteStops(false);
-  window.ShelterProNavigation={openNavigationChoice,refreshRoadNavigation,fitRoute:()=>drawRouteStops(true)};
+  window.ShelterProNavigation={openNavigationChoice,refreshRoadNavigation,fitRoute:fitActiveRoute};
 })();

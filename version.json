@@ -1,14 +1,12 @@
 {
-  "version": "2.5.6",
-  "build": "2026.08.01.256",
-  "name": "Shelter Pro 2.5.6 iPhone Update Bridge",
+  "version": "2.5.7",
+  "build": "2026.08.01.257",
+  "name": "Route Stability",
   "published": "2026-08-01",
   "title": "Safe iPhone update activation",
   "notes": [
-    "Stops repeated update popups and reload loops",
-    "Check Now always reads version.json from GitHub Pages without cache",
-    "Update Now asks the service worker to download the latest release",
-    "On iPhone, close Shelter Pro completely and reopen it to activate the update",
-    "Your jobs, route, favourites and settings remain saved"
+    "Fixed Route Manager list during driving on desktop",
+    "Fixed Fit Route on iPhone",
+    "Keeps every active route stop visible with stop number and site number"
   ]
 }
